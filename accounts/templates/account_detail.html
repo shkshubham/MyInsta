@@ -1,0 +1,378 @@
+{% extends 'base.html' %}
+{% block css %}
+
+  *{
+            margin: 0px;
+            padding: 0px;
+
+        }
+  .twPc-div {
+    margin-top: -60px;
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    height: 400px;
+    max-width: 100%; // orginal twitter width: 290px;
+}
+.twPc-bg {
+    {% if object.avatar %}
+	background-image: url("{{ object.avatar.url }}");
+	{% endif %}
+    background-position: 0 50%;
+    background-size: 100% auto;
+    border-bottom: 1px solid #e1e8ed;
+    border-radius: 4px 4px 0 0;
+    height: 295px;
+    width: 100%;
+}
+.twPc-block {
+    display: block !important;
+}
+.twPc-button {
+    margin: -40px -20px 0;
+    text-align: right;
+    width: 100%;
+}
+.twPc-avatarLink {
+    background-color: #fff;
+    border-radius: 6px;
+    display: inline-block !important;
+    float: left;
+    margin: -130px 5px 0 28px;
+    max-width: 100%;
+    padding: 1px;
+    vertical-align: bottom;
+}
+.twPc-avatarImg {
+    border: 2px solid #fff;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: #fff;
+    height: 172px;
+    width: 172px;
+}
+.twPc-divUser {
+    margin: 5px 0 0;
+}
+.twPc-divName {
+    
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+}
+.twPc-divName a {
+    margin-left: 20px;
+    color: inherit !important;
+}
+.twPc-divStats {
+    margin-left: 200px;
+    padding: 10px 0;
+}
+.twPc-Arrange {
+    box-sizing: border-box;
+    display: table;
+    margin: 0;
+    min-width: 100%;
+    padding: 0;
+    table-layout: auto;
+}
+ul.twPc-Arrange {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.twPc-ArrangeSizeFit {
+    display: table-cell;
+    padding: 0;
+    vertical-align: top;
+}
+.twPc-ArrangeSizeFit a:hover {
+    text-decoration: none;
+}
+.twPc-StatValue {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.15s ease-in-out 0s;
+}
+.twPc-StatLabel {
+    color: #8899a6;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-transform: uppercase;
+    transition: color 0.15s ease-in-out 0s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  background: #F1F3FA;
+}
+
+/* Profile container */
+.profile {
+  margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+	
+.profile-usermenu {
+  margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+{% endblock %}
+
+{% block title  %}
+{{ object.name }} (@{{ username }})
+{% endblock %}
+
+{% block content %}
+   <div class="container-fluid">
+<div class="row">
+<!-- code start -->
+<div class="twPc-div">
+    <a class="twPc-bg twPc-block"></a>
+
+	<div>
+		<div class="twPc-button">
+            {% if user.username == username %}
+						<a href="{% url 'accounts:update' user %}" class="btn btn-success">Edit profile</a>
+					{% elif connected %}
+						<a href="{% url 'accounts:unfollow' username %}" class="btn btn-success">Unfollow</a>
+					{% else  %}
+						<a href="{% url 'accounts:follow' username %}" class="btn btn-primary">Follow</a>
+					{% endif %}
+		</div>
+		{% if object.avatar %}
+		<a title="{{ object.name }}" href="{{ object.avatar.url }}" class="twPc-avatarLink">
+			
+			<img alt="{{ object.name }}" src="{{ object.avatar.url }}" class="twPc-avatarImg">
+			{% endif %}
+		</a>
+
+		<div class="twPc-divUser">
+			<div class="twPc-divName">
+				{{ object.name }}
+			</div>
+			<span>
+				<a href="{{ user.get_absolute_url }}">@<span>{{ username }}</span></a>
+			</span>
+		</div>
+
+		<div class="twPc-divStats">
+			<ul class="twPc-Arrange">
+				<li class="twPc-ArrangeSizeFit">
+					<a href="{{ user.get_absolute_url }}" title="{{ posts.count }} Tweet">
+						<span class="twPc-StatLabel twPc-block">Tweets</span>
+						<span class="twPc-StatValue">{{ posts.count }}</span>
+					</a>
+				</li>
+				<li class="twPc-ArrangeSizeFit">
+					<a href="{% url 'accounts:following' username %}" title="{{ following }} Following">
+						<span class="twPc-StatLabel twPc-block">Following</span>
+						<span class="twPc-StatValue">{{ following }}</span>
+					</a>
+				</li>
+				<li class="twPc-ArrangeSizeFit">
+					<a href="{% url 'accounts:followers' username %}" title="{{ followers }} Followers">
+						<span class="twPc-StatLabel twPc-block">Followers</span>
+						<span class="twPc-StatValue">{{ followers }}</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- code end -->
+</div>
+</div>
+
+
+
+
+                
+
+
+
+
+
+	<div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+				{% if object.avatar %}
+					<img src="{{ object.avatar.url }}" class="img-responsive" alt="">
+				{% endif %}	
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						{{ object.name }}
+					</div>
+					<div class="profile-usertitle-job">
+						@{{ username }}
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					{% if user.username == username %}
+						<a href="{% url 'accounts:update' user %}" class="btn btn-success">Edit profile</a>
+					{% elif connected %}
+						<a href="{% url 'accounts:unfollow' username %}" class="btn btn-success">Unfollow</a>
+					{% else  %}
+						<a href="{% url 'accounts:follow' username %}" class="btn btn-primary">Follow</a>
+					{% endif %}
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active">
+							<a href="#">
+							<i class="glyphicon glyphicon-home"></i>
+							Overview </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-user"></i>
+							Account Settings </a>
+						</li>
+						<li>
+							<a href="{% url 'accounts:followers' username %}" target="_blank">
+							<i class="glyphicon glyphicon-ok"></i>
+							followers: {{ followers }}</a>
+						</li>
+						<li>
+							<a href="{% url 'accounts:following' username %}">
+							<i class="glyphicon glyphicon-flag"></i>
+							following: {{ following }} </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="profile-cont">
+			   {% for post in posts %}
+					{% include 'post.html' %}
+				{% endfor %}
+			</div>
+		</div>
+        <div class="col-md-3">
+			<div class="profile-content">
+			   
+			</div>
+		</div>
+	</div>
+<br>
+<br>
+{% endblock %}

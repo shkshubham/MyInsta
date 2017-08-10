@@ -1,0 +1,31 @@
+<div id="{{ post.slug }}" class="panel panel-default">
+    <div class="panel-heading">
+        <img src="{{ object.avatar.url }}" height="40px" width="40px" /><a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a> |
+        <a href="{% url 'posts:view' post.slug %}">{{ post.date_created|timesince }}</a>
+        {% if user ==  post.author %}
+            | <a href="{% url 'posts:update' post.slug %}">Update</a> |
+            <a href="{% url 'posts:delete' post.slug %}">Delete</a>
+        {% endif %}
+    </div>
+    <div class="panel-body">
+	
+        <img src="{{ post.photo.url }}" alt="{{ post.caption }}" width="100%" height="100%" />
+        <p>{{ post.caption }}</p>
+    </div>
+    <div class="panel-footer">
+        {% if post.liker|length %}
+            <a href="#" data-toggle="modal" data-target="#{{ post.slug }}_likers_modal">Likes: {{ post.liker|length }}</a>
+            {% include 'likers.html' %}
+        {% else %}
+            <p>Be the first to like this.</p>
+        {% endif %}
+        <div class="input-group" id="likeButton">
+            {% if user in post.liker %}
+                <a href="{% url 'posts:unlike' post.slug %}" class="input-group-addon btn btn-default red" id="liked"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
+            {% else %}
+                <a href="{% url 'posts:like' post.slug %}" class="input-group-addon btn btn-default"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
+            {% endif %}
+        <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
+        </div>
+    </div>
+</div>

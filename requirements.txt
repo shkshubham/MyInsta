@@ -1,0 +1,7 @@
+django
+django-crispy_forms
+django-braces
+djangorestframework
+markdown
+django-filter
+django-activity-stream

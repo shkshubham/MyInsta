@@ -1,0 +1,15 @@
+<div class="modal fade" id="{{ post.slug }}_likers_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Likers</h4>
+            </div>
+            <div class="modal-body">
+                {% for liker in post.liker %}
+                    <a href="{% url 'accounts:profile' liker.username %}"><h1>{{ liker.username }}</h1></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

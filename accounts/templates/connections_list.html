@@ -1,0 +1,85 @@
+
+
+
+
+
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ mode }}</h1>
+    {% for user in users %}
+        {% if mode in 'following' %}
+   <div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-md-offset-3">
+            <div class="well well-sm">
+                <div class="row">
+                  <div class="col-sm-6 col-md-4">
+                    <img src="{{ user.following.avatar.url }}" alt="" class="img-rounded img-responsive" />
+                  </div>
+                  <div class="col-sm-6 col-md-8">
+                    <h4><i class="glyphicon glyphicon-user"></i> <strong> {{ user.following.name }}</strong> <span></span></h4>
+                    <small>
+                        <i class="glyphicon glyphicon-user"></i>  @{{ user.following.username }}
+                    </small>
+                    <p>
+                       
+                    <i class="glyphicon glyphicon glyphicon-pencil"></i>  {{ user.following.quote }}<br />
+                    <i class="glyphicon glyphicon-envelope"></i>  {{ user.following.email }}<br />
+                    <i class="glyphicon glyphicon-earphone"></i> {{ user.following.contact }}<br />
+                            <i class="glyphicon glyphicon-gift"></i> {{ user.follower.date_of_birth }}7</p>
+
+
+                        <div class="btn-group">
+                            <a href="{% url 'accounts:profile' user.following %}" type="button" class="btn btn-success">
+                                View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+            
+        {% else %}
+            <h3><a href="{% url 'accounts:profile' user.follower %}">{{ user.follower.username }}</a></h3>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                  <div class="col-sm-6 col-md-4">
+                    <img src="http://placehold.it/150" alt="" class="img-circle img-responsive" />
+                  </div>
+                  <div class="col-sm-6 col-md-8">
+                    <h4><i class="glyphicon glyphicon-user"></i> <strong> {{ user.follower.name }}</strong> <span> @{{ user.follower.username }}</span></h4>
+                    <small>
+                      <cite title="City, ST">
+                        <i class="glyphicon glyphicon-user"></i> City. ST
+                      </cite>
+                    </small>
+                    <p>
+                    <i class="glyphicon glyphicon-envelope"></i> <a href="#">{{ user.follower.email }}</a><br />
+                    <i class="glyphicon glyphicon-globe"></i> <a href="#">http://domain.com</a>
+                            <br />
+                            <i class="glyphicon glyphicon-gift"></i> {{ user.follower.date_of_birth }}7</p>
+                        <!-- Split button -->
+                         <div class="btn-group">
+                            <a href="{% url 'accounts:profile' user.follower %}" type="button" class="btn btn-success">
+                                View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

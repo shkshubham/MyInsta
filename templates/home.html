@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            {% for post in posts  %}
+            {% include 'post.html' %}
+        {% endfor %}
+        </div>
+
+    </div>
+        
+    </div>
+    {% else %}
+        <p>Welcome, new user. Please log in.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ post.author.name }} on Instagram: "{{ post.caption }}"{% endblock %}
+
+{% block content %}
+    {% include 'post.html' %}
+{% endblock %}
