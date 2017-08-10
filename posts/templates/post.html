@@ -1,6 +1,6 @@
 <div id="{{ post.slug }}" class="panel panel-default">
     <div class="panel-heading">
-        <img src="{{ object.avatar.url }}" height="40px" width="40px" /><a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a> |
+       <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a> |
         <a href="{% url 'posts:view' post.slug %}">{{ post.date_created|timesince }}</a>
         {% if user ==  post.author %}
             | <a href="{% url 'posts:update' post.slug %}">Update</a> |
